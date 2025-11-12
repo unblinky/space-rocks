@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b43n0f8g2tfgg"]
+
+[ext_resource type="Script" uid="uid://cgke8bpq05cbs" path="res://Main/Main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://c50hfoa2jugfa" path="res://Player/Player.tscn" id="4_ps1la"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1")
+
+[node name="Player" parent="." instance=ExtResource("4_ps1la")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
