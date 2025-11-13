@@ -3,6 +3,7 @@ class_name Rock
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 
+var main: Main
 var max_speed: float = 300.0
 var velocity: Vector2
 var point_value: int = 1
@@ -28,4 +29,5 @@ func OnAreaEntered(area: Area2D):
 		Destroy()
 
 func Destroy():
+	main.UpdateRockCount(-1)
 	queue_free()
