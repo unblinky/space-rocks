@@ -7,10 +7,14 @@ class_name UFO
 var traveling_left: bool = false
 var speed: float = 100.0 # px / sec.
 var y_direction: float = 0.0
+var point_value: int = 50
 
 func _ready() -> void:
+	## Signal Hooks.
 	timer.timeout.connect(OnTimedOut) # Signal hook
+	area_entered.connect(OnAreaEntered)
 	
+	## Init here...
 	traveling_left = randi_range(0, 1)
 	if traveling_left:
 		position.x = get_viewport().size.x
@@ -46,3 +50,10 @@ func OnTimedOut():
 		else:
 			y_direction = -1
 		#print("Switch Y direction.")
+
+func OnAreaEntered(area: Area2D):
+	if area is Bullet:
+		area.ship.player.UpdateScore(point_value)
+		area.Destroy()
+		queue_free() # TODO: Finish Destroy().
+		
