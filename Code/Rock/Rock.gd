@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 
 func OnAreaEntered(area: Area2D):
-	print(area)
+	#print(area)
 	if area is Ship:
 		area.Destroy() # TODO: Add to `Ship.gd`.
 		Destroy()
@@ -29,5 +29,5 @@ func OnAreaEntered(area: Area2D):
 		Destroy()
 
 func Destroy():
-	main.UpdateRockCount(-1)
+	main.RemoveRock(self)
 	queue_free()
