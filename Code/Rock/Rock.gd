@@ -29,5 +29,5 @@ func OnAreaEntered(area: Area2D):
 		Destroy()
 
 func Destroy():
-	main.UpdateRockCount(-1)
+	main.RemoveRock(self)
 	queue_free()
