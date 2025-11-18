@@ -18,12 +18,13 @@ func _ready() -> void:
 	UpdateScore(0)
 	UpdateLives(0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("launch"):
 		if self.ship == null and lives > 0:
 			main.GameOver() # FIXME: !!!!!!!!!!!!!!
 			SpawnShip()
 			UpdateLives(-1)
+
 
 func SpawnShip():
 	var new_ship: Ship = SHIP.instantiate()

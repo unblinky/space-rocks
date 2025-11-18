@@ -1,6 +1,8 @@
 extends ScreenWrapper
 class_name Rock
 
+const ROCK = preload("res://Rock/Rock.tscn")
+
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 var main: Main
