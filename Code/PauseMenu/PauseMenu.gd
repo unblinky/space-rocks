@@ -1,12 +1,15 @@
 extends PanelContainer
 class_name PauseMenu
 
+const MAIN = preload("res://Main/Main.tscn")
 const PLAYER = preload("res://Player/Player.tscn")
 
 @onready var title: Label = $VBox/Title
 @onready var play_button: Button = $VBox/PlayButton
 @onready var continue_button: Button = $VBox/ContinueButton
 @onready var quit_button: Button = $VBox/QuitButton
+
+var main: Main
 
 func _ready() -> void:
 	play_button.pressed.connect(OnPlayPressed)
@@ -17,12 +20,45 @@ func _ready() -> void:
 	continue_button.hide()
 	quit_button.show()
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		TogglePause()
+
+func TogglePause():
+	if get_tree().paused:
+		get_tree().paused = false
+		hide()
+	else:
+		show()
+		get_tree().paused = true
+		title.text = "Game Paused"
+		play_button.hide()
+		continue_button.show()
+		quit_button.hide()
+
+func GameOver():
+	show()
+	title.text = "Game Over"
+	play_button.text = "Play again?"
+	play_button.show()
+	continue_button.hide()
+	quit_button.hide()
+
 func OnPlayPressed():
-	# TODO: Migrate into Main?
 	hide()
+	
+	# Kill main if it still exists.
+	if main != null:
+		main.queue_free()
+	
+	# Load a fresh game.
+	main = MAIN.instantiate()
+	add_child(main)
+	
+	# Instance Player.
 	var player: Player = PLAYER.instantiate()
-	player.main = get_parent() # HACK: Better organizing?
-	get_parent().add_child(player)
+	player.menu = self
+	main.add_child(player) # Freed when main is destroyed.
 
 func OnContinuePressed():
 	get_tree().paused = false

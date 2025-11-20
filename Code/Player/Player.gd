@@ -8,11 +8,11 @@ const LIFE = preload("res://Player/assets/Life.tscn")
 @onready var lives_ui: HBoxContainer = $VBox/LivesUI
 
 var score: int = 0
-var lives: int = 2
+var lives: int = 1
 
-# Current ship in viewport.
+# Set in PauseMenu.
 var ship: Ship
-var main: Main
+var menu: PauseMenu
 
 func _ready() -> void:
 	UpdateScore(0)
@@ -21,10 +21,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("launch"):
 		if self.ship == null and lives > 0:
-			main.GameOver() # FIXME: !!!!!!!!!!!!!!
 			SpawnShip()
 			UpdateLives(-1)
-
 
 func SpawnShip():
 	var new_ship: Ship = SHIP.instantiate()
@@ -38,7 +36,10 @@ func UpdateScore(delta_score):
 	score_ui.text = str(score)
 
 func UpdateLives(delta_lives):
+	# Update the data.
 	lives += delta_lives
+	
+	# Update the graphics.
 	for child in lives_ui.get_children():
 		child.queue_free()
 	
@@ -46,6 +47,6 @@ func UpdateLives(delta_lives):
 		var life = LIFE.instantiate()
 		lives_ui.add_child(life)
 
-func LivesGone():
-	if lives <= 0 && ship == null:
-		main.GameOver()
+func CheckGameOver():
+	if lives <= 0:
+		menu.GameOver()

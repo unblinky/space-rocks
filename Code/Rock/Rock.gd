@@ -26,7 +26,7 @@ func OnAreaEntered(area: Area2D):
 		Destroy()
 	
 	if area is Bullet:
-		area.ship.player.UpdateScore(point_value)
+		area.player.UpdateScore(point_value)
 		area.Destroy() # TODO: Should we do penetration? Feature creep.
 		Destroy()
 

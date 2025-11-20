@@ -46,14 +46,13 @@ func OnTimedOut():
 		y_direction = 0
 	else:
 		if randi() % 2:
-			y_direction = 1 
+			y_direction = 1
 		else:
 			y_direction = -1
-		#print("Switch Y direction.")
 
 func OnAreaEntered(area: Area2D):
 	if area is Bullet:
-		area.ship.player.UpdateScore(point_value)
+		area.player.UpdateScore(point_value)
 		area.Destroy()
-		queue_free() # TODO: Finish Destroy().
+		queue_free()
 		

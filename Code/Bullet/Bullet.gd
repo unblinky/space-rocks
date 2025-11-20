@@ -3,7 +3,7 @@ class_name Bullet
 
 @onready var timer: Timer = $Timer
 
-var ship: Ship # Data container.
+var player: Player # Data container.
 var velocity: Vector2 = Vector2.ZERO # Direction.
 var speed: float = 800.0 # pixel / sec. multiplier.
 

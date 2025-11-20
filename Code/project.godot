@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Space Rocks"
-run/main_scene="res://Main/Main.tscn"
+run/main_scene="uid://c7mnuv6dhbpif"
 config/features=PackedStringArray("4.5")
 config/icon="res://Main/icon.png"
 

@@ -24,28 +24,18 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("fire"):
 		SpawnBullet()
-		
-	## TODO: Clamps to square.
-	## - Can fly faster at an angle.
-	#if velocity.x > max_speed:
-		#velocity.x = max_speed
-	#if velocity.x < -max_speed:
-		#velocity.x = -max_speed
-	#if velocity.y > max_speed:
-		#velocity.y = max_speed
-	#if velocity.y < -max_speed:
-		#velocity.y = -max_speed
 
 	position += velocity * delta
 
 func SpawnBullet():
 	var bullet: Bullet = BULLET.instantiate()
-	bullet.ship = self
+	bullet.player = player
 	bullet.position = position
 	bullet.rotation = rotation
 	get_parent().add_child(bullet)
 
 func Destroy():
+	player.CheckGameOver()
 	queue_free()
 	# TODO: 
 	# - Play SFX.
